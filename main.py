@@ -2,15 +2,16 @@ from aicore import create_ai_core_client
 from flask import Flask, request
 import json
 import tools
-from langchain_core.tools import tool
+import os
 from langchain_core.messages import SystemMessage
 from langgraph.graph import START, StateGraph, MessagesState
 from langgraph.prebuilt import tools_condition, ToolNode
 from gen_ai_hub.proxy.langchain.init_models import init_llm
 
 # 1. Initialize Flask App
-app = Flask(__name__)
+# app = Flask(__name__)
 
+port = int(os.environ.get('PORT', 3000))
 with open('./credentials.json', 'r') as creds:
     credentials = json.load(creds)
 
@@ -44,10 +45,10 @@ builder.add_conditional_edges(
 builder.add_edge("tools", "assistant")
 graph = builder.compile()
 
-@app.route('/', methods=['GET'])
+# @app.route('/', methods=['GET'])
+# @app.route('/')
 def processing():
-    # user_input = "what is 2 multiplied by 3?"
-    user_input = "what is the status of salesorder 1112 and can you send an email to Fabian with details of the salesorder in a table format with styling?"
+    user_input = "what is the status of salesorder 1112 and can you send an email to Fabian with status of the salesorder 1112?"
         
     # Get user request from the paylod
     # payload = request.get_json()
@@ -64,7 +65,5 @@ def processing():
     return json.dumps({'btpaiagent_response': btpaiagent_response})
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port=5000, debug=True)
-	# if cf_port is None:
-	# else:
-	# 	app.run(host='0.0.0.0', port=int(cf_port), debug=True)
+    processing()
+	# app.run(host='0.0.0.0', port=port)

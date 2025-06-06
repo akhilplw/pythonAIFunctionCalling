@@ -1,5 +1,4 @@
-import requests, random
-from requests.auth import HTTPBasicAuth
+import requests
 import json
 import smtplib
 from email.mime.text import MIMEText
@@ -24,11 +23,11 @@ def get_salesorder_details(invoice_id: str) -> str:
    Args:
       invoice_id: The invoide id
    """
-   print(f"Getting status for {invoice_id}")
+   print(f"Getting Details for {invoice_id}")
    url = f"{system_host}/A_SalesOrder('{invoice_id}')?$format=json&$select=SalesOrder,SalesOrderType,SalesOrderType,SalesOrganization,DistributionChannel,OrganizationDivision,SoldToParty,OverallDeliveryStatus"
    odataresponse = session.get(url)
    # mailbody = json_to_html_table_for_email(odataresponse.content)
-   response = f"The status for invoice {invoice_id} in json is: {odataresponse.content}." 
+   response = f"The details for invoice {invoice_id} in json is: {odataresponse.content}." 
    # print(mailbody)
    return response
 

@@ -1,9 +1,9 @@
 ---
 applications:
-- name: myapp
+- name: PythonGenAIAgent
   random-route: true
   path: ./
-  memory: 128M
+  memory: 1024M
   buildpacks: 
   - python_buildpack
-  command: python main.py
+  command: python3 main.py

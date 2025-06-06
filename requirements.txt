@@ -1,4 +1,3 @@
-Flask
+Flask==2.3.*
 generative-ai-hub-sdk[all]
 langgraph
-logger
